@@ -1,3 +1,27 @@
+.search-btn {
+  transition: background 180ms cubic-bezier(0.4,0,0.2,1);
+}
+/* Search button hover effect */
+.search-btn:hover {
+  background: #088688 !important;
+}
+/* Animated search placeholder */
+.search-placeholder {
+  color: #9B9B9B;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0;
+  transition: transform 0.35s cubic-bezier(.7,.2,.3,1), opacity 0.35s cubic-bezier(.7,.2,.3,1);
+  transform: translateX(0);
+  opacity: 1;
+  white-space: nowrap;
+  z-index: 2;
+}
+.search-placeholder-animate {
+  transform: translateX(-60px);
+  opacity: 0;
+}
 :root {
   --teal-500: #1ea19b;
   --teal-600: #179186;
@@ -399,6 +423,21 @@ body {
   text-decoration: none
 }
 
+/* Search input typography -- applied globally to inputs with class .search-input */
+.search-input {
+  color: #9B9B9B; /* text-color */
+  font-weight: 500;
+  /* 'Medium' is a font-style descriptor; use font-weight instead. */
+  font-style: normal;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0;
+  /* leading-trim has limited browser support; keep as a comment for future use */
+  /* leading-trim: none; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .header-inner {
   align-items: center
 }
@@ -612,34 +651,24 @@ body {
 }
 
 .hero-section {
-  padding: 60px 24px;
+  padding: 95px 35px 24px 24px;
   text-align: center;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto
 }
 
 .hero-title {
-  font-size: 42px;
-  font-weight: 800;
+  font-size: 28px;
+  font-weight: 600;
   margin: 0 0 12px;
   color: #111827
 }
 
 .hero-desc {
-  font-size: 16px;
   color: var(--muted);
-  margin: 0 0 32px;
-  line-height: 1.6
-}
-
-.search-box {
-  display: flex;
-  gap: 12px;
-  margin: 0 auto;
-  max-width: 800px;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0 0 68px
 }
 
 .search-input {
@@ -694,11 +723,7 @@ body {
   margin: 0 0 24px
 }
 
-.companies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 24px
-}
+
 
 .company-card {
   padding: 24px;
