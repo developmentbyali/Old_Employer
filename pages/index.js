@@ -88,12 +88,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Top Rated Companies Section */}
+        {/** Background Images */}
         <div style={{ width: '100%', height: '1500px', background: '#f5f7fb', position: 'relative', overflow: 'hidden', margin: '0 auto' }}>
           <img src="/bg-down.png" alt="background" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 'auto', pointerEvents: 'none', zIndex: 0 }} />
           <img src="/Vector.png" alt="vector" style={{ position: 'absolute', bottom: 0, right: 0, width: '100%', height: 'auto', pointerEvents: 'none', zIndex: 0 }} />
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <section style={{ maxWidth: '1500px', margin: '0 auto' }}>
+                 
+            {/* Top Rated Companies Section */}
+            <section style={{ maxWidth: '1500px', margin: '0 auto', paddingTop:'15px'}}>
               <div style={{ width: '50%' }}>
                 <h3 style={{ fontWeight: 600, fontStyle: 'semibold', fontSize: '28px', lineHeight: '100%', letterSpacing: 0, color: '#181818', marginBottom: '16px' }}>Top Rated Campines</h3>
                 <div style={{ width: '40px', height: '3px', background: '#23BABC' }}></div>
@@ -157,34 +159,54 @@ export default function Home() {
             </section>
 
 
+        {/* Job Opportunity Section */}
+            <section style={{ maxWidth: '1500px', margin: '0 auto', display: 'flex', flexDirection: 'row',margin:'80px auto' }}>
+              <div style={{ width: '50%' }}>
+ {/* Scroll Mouse Indicator */}
+                <div style={{display:'flex',flexDirection:'column',alignItems:'start'}}>
+                  <svg width="32" height="64" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{overflow:'visible'}}>
+                    <rect x="8" y="2" width="16" height="32" rx="8" stroke="#181818" strokeWidth="2" fill="none"/>
+                    <rect id="mouse-anim-rect" x="15" y="10" width="2" height="8" rx="1" fill="#181818" style={{animation:'mouseMove 2.4s ease-in-out infinite', willChange: 'transform, opacity'}} />
+                  </svg>
+                  <style>{`
+                    @keyframes mouseMove {
+                      0% { transform: translateY(0); opacity: 1; }
+                      45% { transform: translateY(10px); opacity: 0.6; }
+                      100% { transform: translateY(0); opacity: 1; }
+                    }
+                  `}</style>
+                  <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start',marginLeft:'4px'}}>
+                    <svg className="mouse-arrow arrow-1" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 12L6 6H18L12 12Z" fill="#181818"/>
+                    </svg>
+                    <svg className="mouse-arrow arrow-2" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{opacity:0.6}}>
+                      <path d="M12 12L6 6H18L12 12Z" fill="#181818"/>
+                    </svg>
+                    <svg className="mouse-arrow arrow-3" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{opacity:0.3}}>
+                      <path d="M12 12L6 6H18L12 12Z" fill="#181818"/>
+                    </svg>
+                    <style>{`
+                      .mouse-arrow { transform-origin: center; }
+                      @keyframes arrowMove {
+                        0% { transform: translateY(0); opacity: 0; }
+                        40% { transform: translateY(6px); opacity: 1; }
+                        100% { transform: translateY(12px); opacity: 0; }
+                      }
+                      .arrow-1 { animation: arrowMove 2.2s ease-in-out infinite; animation-delay: 0s; will-change: transform, opacity }
+                      .arrow-2 { animation: arrowMove 2.2s ease-in-out infinite; animation-delay: 0.25s; will-change: transform, opacity }
+                      .arrow-3 { animation: arrowMove 2.2s ease-in-out infinite; animation-delay: 0.5s; will-change: transform, opacity }
+                    `}</style>
+                  </div>
+                </div>
+                
+              </div>
+              <div style={{ width: '50%' }}>s2</div>
+            </section>
 
-            <section style={{ maxWidth: '1500px', margin: '0 auto' }}>Section 2 content</section>
-
-
-
-
-            
             <section style={{ maxWidth: '1500px', margin: '0 auto' }}>Section 3 content</section>
           </div>
         </div>
 
-        {/* Top Rated Companies Section */}
-        <section className="section">
-          <div className="companies-grid">
-            <div className="company-card">
-              <div className="company-triangle">▲</div>
-              <h3>Acndrigth Ink</h3>
-              <div className="rating">★★★★★ 23</div>
-              <div className="company-label">Founded</div>
-            </div>
-            <div className="company-card">
-              <div className="company-triangle">▲</div>
-              <h3>Acndrigth Ink</h3>
-              <div className="rating">★★★★★ 23</div>
-              <div className="company-label">Founded</div>
-            </div>
-          </div>
-        </section>
 
         {/* Job Opportunity Section */}
         <section className="job-section">
