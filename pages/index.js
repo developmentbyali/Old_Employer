@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import CountrySelect from '../components/CountrySelect'
 import CitySelect from '../components/CitySelect'
 import EmployerSelect from '../components/EmployerSelect'
+import ProfileOverlay from '../components/ProfileOverlay'
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
@@ -160,7 +161,7 @@ export default function Home() {
 
 
         {/* Job Opportunity Section */}
-            <section style={{ maxWidth: '1500px', margin: '0 auto', display: 'flex', flexDirection: 'row',margin:'80px auto' }}>
+            <section style={{ maxWidth: '1500px', margin: '0 auto', display: 'flex', flexDirection: 'row', margin:'80px auto', position: 'relative' }}>
               <div style={{ width: '50%' }}>
  {/* Scroll Mouse Indicator */}
                 <div style={{display:'flex',flexDirection:'column',alignItems:'start'}}>
@@ -200,7 +201,14 @@ export default function Home() {
                 </div>
                 
               </div>
-              <div style={{ width: '50%' }}>s2</div>
+              <div style={{ width: '50%', minHeight: '180px' }}>
+                {/* s2 content placeholder */}
+                <div>s2</div>
+              </div>
+
+              {/* Overlay moved to section parent (anchored top-right of this section) */}
+              {/* Profile overlay component (floating) */}
+              <ProfileOverlay />
             </section>
 
             <section style={{ maxWidth: '1500px', margin: '0 auto' }}>Section 3 content</section>
@@ -221,7 +229,6 @@ export default function Home() {
             <img src="/look-in-side.png" alt="Job opportunity" className="job-illustration" />
           </div>
         </section>
-
         {/* How it works Section */}
         <section className="section">
           <h2 className="section-title">How can look in side in any company</h2>
