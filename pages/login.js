@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Header from '../components/Header'
+// Header is provided by Layout
 import Link from 'next/link'
 
 export default function Login() {
@@ -10,13 +10,7 @@ export default function Login() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <Header />
-
-      <main className="page-root">
-        <section className="left-side">
-          <div className="illustration-bg" aria-hidden="true" />
-        </section>
-
+  <main className="page-root">
         <section className="right-side">
           <div className="card">
             <h1 className="title">Login to OldEmployer</h1>
@@ -32,8 +26,8 @@ export default function Login() {
               <Link href="/signup">
                 <button className="btn-primary" type="button">Join Now</button>
               </Link>
-              <div style={{height:12}} />
-              <p style={{textAlign:'center',marginTop:8}}><a href="/reset-password">Reset password</a></p>
+              <div className="spacer-12" />
+              <p className="center-small"><a href="/reset-password">Reset password</a></p>
               <div className="divider" />
 
               <button className="btn-google" type="button">

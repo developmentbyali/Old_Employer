@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 const COUNTRIES = [
   { code: 'us', name: 'United State' },
@@ -13,6 +14,7 @@ export default function CountrySelect({ value = 'gb', onChange }) {
   const [mounted, setMounted] = useState(false)
   const [highlight, setHighlight] = useState(-1)
   const containerRef = useRef(null)
+  const [portalStyle, setPortalStyle] = useState({ left: 0, top: 0, width: 0 })
 
   const selectedIndex = COUNTRIES.findIndex(c => c.code === value)
 
@@ -38,7 +40,12 @@ export default function CountrySelect({ value = 'gb', onChange }) {
     if (!mounted) {
       setMounted(true)
       // allow mounted to apply then open to trigger transition
-      setTimeout(()=>setOpen(true), 10)
+      setTimeout(()=>{
+        setOpen(true)
+        // compute portal position
+        const rect = containerRef.current && containerRef.current.getBoundingClientRect()
+        if (rect) setPortalStyle({ left: rect.left + window.scrollX, top: rect.bottom + window.scrollY, width: rect.width })
+      }, 10)
     } else {
       setOpen(v => !v)
       // if closing, unmount after transition
@@ -65,7 +72,7 @@ export default function CountrySelect({ value = 'gb', onChange }) {
   }
 
   return (
-    <div ref={containerRef} style={{position:'relative',width:250}}>
+    <div ref={containerRef} className="select-container select-250">
       <div
         role="button"
         tabIndex={0}
@@ -73,19 +80,24 @@ export default function CountrySelect({ value = 'gb', onChange }) {
         aria-expanded={open}
         onClick={toggle}
         onKeyDown={handleKeyDown}
-        style={{display:'flex',alignItems:'center',justifyContent:'flex-start',background:'#ffffff',border:'1px solid #e6e7eb',borderRadius:0,padding:'10px 15px',gap:8,margin:0,width:'250px',height:44,cursor:'pointer'}}
+        className={`select-trigger select-250 ${open ? 'open' : ''}`}
       >
-        <img src={`https://flagcdn.com/${value}.svg`} alt={value} style={{width:22,height:16,flex:'0 0 auto'}} />
-        <div style={{flex:1,color:'#9B9B9B',fontWeight:500,fontSize:16,textAlign:'left',display:'flex',alignItems:'center',justifyContent:'flex-start'}}>{COUNTRIES.find(c=>c.code===value)?.name || 'Select'}</div>
-        <div style={{flex:'0 0 auto',transform: open ? 'rotate(180deg)' : 'none',transition:'transform 0.2s'}} aria-hidden>
+        <img src={`https://flagcdn.com/${value}.svg`} alt={value} className="flag-img flag-22-16" />
+        <div className="select-value">{COUNTRIES.find(c=>c.code===value)?.name || 'Select'}</div>
+        <div className={`select-chevron ${open ? 'open' : ''}`} aria-hidden>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
             <path d="M6 9l6 6 6-6" stroke="#6b7280" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
       </div>
 
-      {mounted && (
-        <ul role="listbox" tabIndex={-1} style={{position:'absolute',left:0,top:'100%',width:250,background:'#fff',border:'1px solid #e6e7eb',boxShadow:'0 6px 20px rgba(0,0,0,0.06)',borderRadius:0,padding:0,margin:0,listStyle:'none',zIndex:40,maxHeight:220,overflow:'auto',transform: open ? 'translateY(0)' : 'translateY(-6px)',opacity: open ? 1 : 0,transition:'opacity 220ms ease, transform 220ms ease',pointerEvents: open ? 'auto' : 'none'}}>
+      {mounted && containerRef.current && createPortal(
+        <ul
+          role="listbox"
+          tabIndex={-1}
+          className={`select-list select-250 ${open ? 'open' : ''} portal`}
+          style={{ position: 'absolute', left: portalStyle.left, top: portalStyle.top, width: portalStyle.width }}
+        >
           {COUNTRIES.map((c, i) => (
             <li
               key={c.code}
@@ -94,13 +106,14 @@ export default function CountrySelect({ value = 'gb', onChange }) {
               onMouseEnter={()=>setHighlight(i)}
               onMouseLeave={()=>setHighlight(-1)}
               onClick={()=>{ onChange(c.code); setOpen(false); setTimeout(()=>setMounted(false), 240) }}
-              style={{display:'flex',alignItems:'center',gap:10,padding:'10px 12px',cursor:'pointer',background: highlight===i ? '#f7fafc' : 'transparent',borderBottom: '1px solid #f1f4f7',justifyContent:'flex-start',textAlign:'left'}}
+              className={`select-option ${highlight===i ? 'highlight' : ''}`}
             >
-              <img src={`https://flagcdn.com/${c.code}.svg`} alt={c.code} style={{width:20,height:14}} />
-              <div style={{flex:1,color:'#374151',display:'flex',alignItems:'center',justifyContent:'flex-start'}}>{c.name}</div>
+              <img src={`https://flagcdn.com/${c.code}.svg`} alt={c.code} className="flag-img flag-20-14" />
+              <div className="select-option-label">{c.name}</div>
             </li>
           ))}
-        </ul>
+        </ul>,
+        document.body
       )}
     </div>
   )

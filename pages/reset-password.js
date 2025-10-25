@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Header from '../components/Header'
+// Header is provided by Layout
 
 export default function ResetPassword(){
   return (
@@ -9,13 +9,7 @@ export default function ResetPassword(){
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <Header />
-
-      <main className="page-root">
-        <section className="left-side">
-          <div className="reset-illustration" aria-hidden="true" />
-        </section>
-
+  <main className="page-root">
         <section className="right-side reset-right">
           <div className="card">
             <h2 className="title">You lost your password ?</h2>
@@ -27,7 +21,7 @@ export default function ResetPassword(){
 
               <button className="btn-primary" type="button">SUBMIT</button>
 
-              <p style={{textAlign:'center',marginTop:18,color:'rgba(0,0,0,0.8)'}}>Already have password? <a href="/login">Login</a></p>
+              <p className="center-note-strong">Already have password? <a href="/login">Login</a></p>
             </form>
           </div>
         </section>

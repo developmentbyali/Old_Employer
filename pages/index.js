@@ -6,6 +6,8 @@ import CountrySelect from '../components/CountrySelect'
 import CitySelect from '../components/CitySelect'
 import EmployerSelect from '../components/EmployerSelect'
 import ProfileOverlay from '../components/ProfileOverlay'
+import ScrollMouse from '../components/ScrollMouse'
+import EmployerSlider from '../components/EmployerSlider'
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
@@ -13,6 +15,12 @@ export default function Home() {
   const [country, setCountry] = useState('gb');
   const [city, setCity] = useState('')
   const [employer, setEmployer] = useState('')
+  const sliderItems = [
+    { title: 'Andropple lab', location: 'Pakistan', rating: '4.5', reviews: 150, avatar: '/logo 2.png' },
+    { title: 'Acme Co', location: 'USA', rating: '4.2', reviews: 98, avatar: '/logo 2.png' },
+    { title: 'Techrise', location: 'UK', rating: '4.8', reviews: 210, avatar: '/logo 2.png' },
+    { title: 'DevWorks', location: 'Canada', rating: '4.0', reviews: 44, avatar: '/logo 2.png' }
+  ]
   return (
     <>
       <Head>
@@ -20,40 +28,26 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <Header />
-
       <main className="home-root">
+        <ProfileOverlay />
+
         {/* Hero Section */}
         <section className="hero-section">
           <div className="hero-content">
             <h1 className="hero-title">Look inside in any Company</h1>
             <p className="hero-desc">Read Review and discover great companies !<br />Write reviews & help other people for discover right job & great companies.</p>
           </div>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            background: '#fff',
-            borderRadius: '15px',
-            backdropFilter: 'blur(15px)',
-            boxShadow: '0px 0px 10px 0px #0000001A',
-            padding: '48px 50px',
-            height: '140px',
-            width: 'auto',
-            maxWidth: 'none',
-            margin: '0 auto',
-            flexWrap: 'nowrap'
-          }}>
-            <span style={{ display: 'flex', alignItems: 'center', background: '#ffffff', border: '1px solid #e6e7eb', borderRadius: '4px', padding: '0 16px', margin: 0, width: '526px', height: '44px', position: 'relative', overflow: 'hidden' }}>
+          <div className="hero-search-panel">
+            <span className="search-box">
               <svg width="20" height="20" fill="none" stroke="#999" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
               <span
                 className={`search-placeholder${searchFocused || searchValue ? ' search-placeholder-animate' : ''}`}
-                style={{ position: 'absolute', left: 60, top: 0, height: '100%', display: 'flex', alignItems: 'center', pointerEvents: 'none', fontWeight: 500, fontSize: '16px', fontStyle: 'normal' }}>
+              >
                 Search Company/Employer or key word ...
               </span>
               <input
                 type="text"
                 className="search-input"
-                style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', height: '100%' }}
                 value={searchValue}
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
@@ -64,94 +58,56 @@ export default function Home() {
             <CountrySelect value={country} onChange={setCountry} />
             <CitySelect value={city} onChange={setCity} />
             <EmployerSelect value={employer} onChange={setEmployer} />
-            <button
-              className="search-btn"
-              style={{
-                width: 174,
-                height: 44,
-                paddingTop: 8,
-                paddingRight: 15,
-                paddingBottom: 8,
-                paddingLeft: 15,
-                borderWidth: 1,
-                borderStyle: 'solid',
-                borderColor: '#23BABC',
-                color: '#FFFFFF',
-                fontSize: 16,
-                fontWeight: 500,
-                borderRadius: 0,
-                margin: 0,
-                background: '#23BABC'
-              }}
-            >
-              Search
-            </button>
+            <button className="search-btn">Search</button>
           </div>
         </section>
 
         {/** Background Images */}
-        <div style={{ width: '100%', height: '1500px', background: '#f5f7fb', position: 'relative', overflow: 'hidden', margin: '0 auto' }}>
-          <img src="/bg-down.png" alt="background" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 'auto', pointerEvents: 'none', zIndex: 0 }} />
-          <img src="/Vector.png" alt="vector" style={{ position: 'absolute', bottom: 0, right: 0, width: '100%', height: 'auto', pointerEvents: 'none', zIndex: 0 }} />
-          <div style={{ position: 'relative', zIndex: 1 }}>
-                 
+        <div className="hero-bg-container">
+          <img src="/bg-down.png" alt="background" className="bg-down" />
+          <img src="/Vector.png" alt="vector" className="bg-vector" />
+          <div className="hero-bg-inner">
+
             {/* Top Rated Companies Section */}
-            <section style={{ maxWidth: '1500px', margin: '0 auto', paddingTop:'15px'}}>
-              <div style={{ width: '50%' }}>
-                <h3 style={{ fontWeight: 600, fontStyle: 'semibold', fontSize: '28px', lineHeight: '100%', letterSpacing: 0, color: '#181818', marginBottom: '16px' }}>Top Rated Campines</h3>
-                <div style={{ width: '40px', height: '3px', background: '#23BABC' }}></div>
-                <div style={{width:'100%',height:'1px',background:'#EAF0FF',margin:0,padding:0}}></div>
-                <div style={{display:'flex',gap:'32px',marginTop:'32px'}}>
+            <section className="top-rated-section">
+              <div className="top-rated-inner">
+                <h3 className="top-rated-title">Top Rated Companies</h3>
+                <div className="top-rated-accent" />
+                <div className="top-rated-divider" />
+                <div className="top-cards">
+
                   {/* Card 1 */}
-                  <div style={{flex:'1',background:'#fff',border:'1px solid #EAF0FF',borderRadius:'15px',padding:'15px',display:'flex',flexDirection:'row',alignItems:'center',boxSizing:'border-box',height:'80px',gap:'10px'}}>
-                    <div style={{width:'50px',height:'50px',borderRadius:'50%',border:'1px solid #EAF0FF',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                      <img src="/logo 2.png" alt="Andropple lab" style={{width:'34.44px',height:'31.11px'}} />
+                  <div className="top-card">
+                    <div className="card-avatar">
+                      <img src="/logo 2.png" alt="Andropple lab" className="card-avatar-img" />
                     </div>
-                    <div style={{height:'41px',width:'240px'}}>
-                      <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',margin:0,padding:0,height:'19px'}}>
-                        <h6 style={{margin:0,padding:0,fontWeight:600,fontStyle:'semibold',fontSize:'16px',color:'#252525'}}>Andropple lab</h6>
-                        <p style={{margin:0,padding:0,textAlign:'right',marginLeft:'16px',display:'inline-block'}}>Pakistan</p>
+                    <div className="card-details">
+                      <div className="card-title-row">
+                        <h6 className="card-title">Andropple lab</h6>
+                        <p className="card-location">Pakistan</p>
                       </div>
-                      {/* <div style={{height:'20px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>4</div> */}
-                    <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-                        <span style={{color:'#FFA800',fontSize:'18px'}}>★★★★★</span>
-                        {/* <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}> */}
-                          <img src="/rating.svg" alt="rating" style={{width:'24px',height:'20px'}} />
-                          <span style={{fontWeight:500,fontStyle:'medium',fontSize:'12px',color:'#585858'}}>Overall ratings</span>
-                        {/* </div> */}
-                        
+                      <div className="card-meta">
+                        <span className="card-stars">★★★★★</span>
+                        <img src="/rating.svg" alt="rating" className="card-rating-img" />
+                        <span className="card-overall">Overall ratings</span>
                       </div>
                     </div>
                   </div>
+
                   {/* Card 2 */}
-                  {/* <div style={{flex:'1',background:'#fff',border:'1px solid #EAF0FF',borderRadius:'15px',padding:'15px',display:'flex',alignItems:'center',boxSizing:'border-box',height:'80px',gap:'10px'}}>
-                    <img src="/logo.png" alt="Andropple lab" style={{width:'56px',height:'56px',borderRadius:'50%',objectFit:'cover',marginRight:'20px',border:'1px solid #EAF0FF'}} />
-                    <div style={{flex:'1'}}>
-                      <div style={{fontWeight:'600',fontSize:'20px',marginBottom:'4px',color:'#181818'}}>Andropple lab</div>
-                      <div style={{display:'flex',alignItems:'center',gap:'8px'}}>
-                        <span style={{color:'#FFA800',fontSize:'15px',width:'87px'}}>★★★★★</span>
-                        <span style={{background:'#23BABC',color:'#fff',borderRadius:'6px',padding:'2px 10px',fontWeight:'600',fontSize:'15px'}}>4.5</span>
-                      </div>
+                  <div className="top-card">
+                    <div className="card-avatar">
+                      <img src="/logo 2.png" alt="Andropple lab" className="card-avatar-img" />
                     </div>
-                    <div style={{textAlign:'right',color:'#888',fontSize:'15px'}}>Pakistan</div>
-                  </div> */}
-                   <div style={{flex:'1',background:'#fff',border:'1px solid #EAF0FF',borderRadius:'15px',padding:'15px',display:'flex',flexDirection:'row',alignItems:'center',boxSizing:'border-box',height:'80px',gap:'10px'}}>
-                    <div style={{width:'50px',height:'50px',borderRadius:'50%',border:'1px solid #EAF0FF',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                      <img src="/logo 2.png" alt="Andropple lab" style={{width:'34.44px',height:'31.11px'}} />
-                    </div>
-                    <div style={{height:'41px',width:'240px'}}>
-                      <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',margin:0,padding:0,height:'19px'}}>
-                        <h6 style={{margin:0,padding:0,fontWeight:600,fontStyle:'semibold',fontSize:'16px',color:'#252525'}}>Andropple lab</h6>
-                        <p style={{margin:0,padding:0,textAlign:'right',marginLeft:'16px',display:'inline-block'}}>Pakistan</p>
+                    <div className="card-details">
+                      <div className="card-title-row">
+                        <h6 className="card-title">Andropple lab</h6>
+                        <p className="card-location">Pakistan</p>
                       </div>
-                      {/* <div style={{height:'20px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>4</div> */}
-                    <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-                        <span style={{color:'#FFA800',fontSize:'18px'}}>★★★★★</span>
-                        {/* <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}> */}
-                          <img src="/rating.svg" alt="rating" style={{width:'24px',height:'20px'}} />
-                          <span style={{fontWeight:500,fontStyle:'medium',fontSize:'12px',color:'#585858'}}>Overall ratings</span>
-                        {/* </div> */}
-                        
+                      <div className="card-meta">
+                        <span className="card-stars">★★★★★</span>
+                        <img src="/rating.svg" alt="rating" className="card-rating-img" />
+                        <span className="card-overall">Overall ratings</span>
                       </div>
                     </div>
                   </div>
@@ -159,217 +115,149 @@ export default function Home() {
               </div>
             </section>
 
-
-        {/* Job Opportunity Section */}
-            <section style={{ maxWidth: '1500px', margin: '0 auto', display: 'flex', flexDirection: 'row', margin:'80px auto', position: 'relative' }}>
-              <div style={{ width: '50%' }}>
- {/* Scroll Mouse Indicator */}
-                <div style={{display:'flex',flexDirection:'column',alignItems:'start'}}>
-                  <svg width="32" height="64" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{overflow:'visible'}}>
-                    <rect x="8" y="2" width="16" height="32" rx="8" stroke="#181818" strokeWidth="2" fill="none"/>
-                    <rect id="mouse-anim-rect" x="15" y="10" width="2" height="8" rx="1" fill="#181818" style={{animation:'mouseMove 2.4s ease-in-out infinite', willChange: 'transform, opacity'}} />
-                  </svg>
-                  <style>{`
-                    @keyframes mouseMove {
-                      0% { transform: translateY(0); opacity: 1; }
-                      45% { transform: translateY(10px); opacity: 0.6; }
-                      100% { transform: translateY(0); opacity: 1; }
-                    }
-                  `}</style>
-                  <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start',marginLeft:'4px'}}>
-                    <svg className="mouse-arrow arrow-1" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 12L6 6H18L12 12Z" fill="#181818"/>
-                    </svg>
-                    <svg className="mouse-arrow arrow-2" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{opacity:0.6}}>
-                      <path d="M12 12L6 6H18L12 12Z" fill="#181818"/>
-                    </svg>
-                    <svg className="mouse-arrow arrow-3" width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{opacity:0.3}}>
-                      <path d="M12 12L6 6H18L12 12Z" fill="#181818"/>
-                    </svg>
-                    <style>{`
-                      .mouse-arrow { transform-origin: center; }
-                      @keyframes arrowMove {
-                        0% { transform: translateY(0); opacity: 0; }
-                        40% { transform: translateY(6px); opacity: 1; }
-                        100% { transform: translateY(12px); opacity: 0; }
-                      }
-                      .arrow-1 { animation: arrowMove 2.2s ease-in-out infinite; animation-delay: 0s; will-change: transform, opacity }
-                      .arrow-2 { animation: arrowMove 2.2s ease-in-out infinite; animation-delay: 0.25s; will-change: transform, opacity }
-                      .arrow-3 { animation: arrowMove 2.2s ease-in-out infinite; animation-delay: 0.5s; will-change: transform, opacity }
-                    `}</style>
+            {/* Job Opportunity Section */}
+            <section className="job-cta-section">
+              <div className="job-cta-inner">
+                <ScrollMouse left={-20} top={-80} />
+                <div className="job-cta-row">
+                  <h3 className="job-cta-title">Get better job that you deserve !</h3>
+                  <div className="job-cta-action">
+                    <Link href="/signup">
+                      <button className="signup-now">Signup Now</button>
+                    </Link>
                   </div>
                 </div>
-                
-              </div>
-              <div style={{ width: '50%', minHeight: '180px' }}>
-                {/* s2 content placeholder */}
-                <div>s2</div>
-              </div>
 
-              {/* Overlay moved to section parent (anchored top-right of this section) */}
-              {/* Profile overlay component (floating) */}
-              <ProfileOverlay />
+                <div className="job-cta-accent">
+                  <div className="job-cta-bar" />
+                  <div className="job-cta-divider"></div>
+                </div>
+
+                <p className="job-cta-desc">Complete your profile and get better opportunity that are most relevant to you with out apply for job !</p>
+
+              </div>
             </section>
 
-            <section style={{ maxWidth: '1500px', margin: '0 auto' }}>Section 3 content</section>
+            {/* How can look in side in any company */}
+            <section className="section-3">
+              <div className="feature-inner">
+                <div className="feature-card-wrap">
+                  <img src="/next-move1.svg" alt="Next Move" className="feature-illustration" />
+                </div>
+                <div>
+                  <h3 className="top-rated-title">How can look in side in any company</h3>
+                  <div className="top-rated-accent" />
+                  <div className="top-rated-divider" />
+                  <div className="top-cards"></div>
+                  <p className="feature-desc">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 falso reproduced in their exactoriginal form, accompanied by English versions</p>
+                </div>
+              </div>
+            </section>
+
+            {/* 2 How can look in side in any company */}
+            <section className="section-3">
+              <div className="feature-inner">
+                <div>
+                  <h3 className="top-rated-title">How can look in side in any company</h3>
+                  <div className="top-rated-accent" />
+                  <div className="top-rated-divider" />
+                  <div className="top-cards"></div>
+                  <p className="feature-desc">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 falso reproduced in their exactoriginal form, accompanied by English versions</p>
+
+                </div>
+
+                <div className="feature-card-wrap">
+                  <img src="/look-in-side.svg" alt="Next Move" className="feature-illustration" />
+                </div>
+              </div>
+            </section>
+
+            {/* Join The Old Employer Community */}
+            <section className="section-3">
+              <div className="feature-inner">
+                <div className="feature-card-wrap">
+                  <img src="/frame.svg" alt="Next Move" className="feature-illustration" />
+                </div>
+                <div className="join-the">
+                  <h3 className="top-rated-title">Join The Old Employer Community</h3>
+                  <div className="top-rated-accent" />
+                  <div className="top-rated-divider" />
+                  <div className="top-cards"></div>
+                  <p className="feature-desc">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 falso reproduced in their exactoriginal form, accompanied by English versions The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 falso reproduced in their exactoriginal form, accompanied by English versions</p>
+
+                </div>
+              </div>
+            </section>
+
+            {/* You are a owner of a company ? */}
+            <section className="job-cta-left">
+              <div className="job-cta-inner">
+                <div className="job-cta-row">
+                  <h3 className="job-cta-title">You are a owner of a company ? </h3>
+                  <div className="job-cta-action">
+                    <Link href="/signup">
+                      <button className="signup-now">Signup Now</button>
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="job-cta-accent">
+                  <div className="job-cta-bar" />
+                  <div className="job-cta-divider"></div>
+                </div>
+
+                <p className="job-cta-desc">You try to find good employs ? no need to post a job, just search your desire skills, location or industry  and its done !</p>
+
+              </div>
+            </section>
+
+            {/* Companies Rating */}
+            <section className="section-3">
+              <div className="feature-inner">
+                <div className="comp-rating">
+                  <h3 className="top-rated-title">How can look in side in any company</h3>
+                  <div className="top-rated-accent" />
+                  <div className="top-rated-divider" />
+                  <div className="top-cards"></div>
+                  <p className="feature-desc">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 falso reproduced in their exactoriginal form, accompanied by English versions</p>
+
+                </div>
+
+                <div>
+                  <EmployerSlider items={sliderItems} />
+                </div>
+              </div>
+            </section>
           </div>
         </div>
 
-
-        {/* Job Opportunity Section */}
-        <section className="job-section">
-          <div className="job-left">
-            <h2>Get better job that you deserve !</h2>
-            <p>Complete your profile and get better opportunity that we most relevant to you with our apply for Job.</p>
-            <Link href="/signup">
-              <button className="btn-apply">Apply now</button>
-            </Link>
-          </div>
-          <div className="job-right">
-            <img src="/look-in-side.png" alt="Job opportunity" className="job-illustration" />
-          </div>
-        </section>
-        {/* How it works Section */}
-        <section className="section">
-          <h2 className="section-title">How can look in side in any company</h2>
-          <div className="how-works-container">
-            <div className="how-left">
-              <img src="/Frame 371.png" alt="How it works" className="how-illustration" />
-            </div>
-            <div className="how-right">
-              <h3>How can look in side in any company</h3>
-              <p>The standard chunk of Lorem ipsum used since the 1950s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" accompanied by English versions.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Join Community Section */}
-        <section className="community-section">
-          <h2>Join The Old Employer Community</h2>
-          <p>The standard chunk of Lorem Ipsum used since the 1950s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" accompanied by English versions.</p>
-          <img src="/Frame.png" alt="Community" className="community-illustration" />
-        </section>
-
-        {/* How it can look section */}
-        <section className="section">
-          <div className="how-works-container">
-            <div className="how-left">
-              <h3>How can look in side in any company</h3>
-              <p>The standard chunk of Lorem ipsum text used since the 1950s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" accompanied by English versions.</p>
-            </div>
-            <div className="how-right">
-              <img src="/Frame 177.png" alt="How to look" className="how-illustration" />
-            </div>
-          </div>
-        </section>
-
-        {/* Companies Owner Section */}
-        <section className="section">
-          <h2 className="section-title">You are a owner of a company ?</h2>
-          <p className="section-desc">We'd be that analyzed you need to track your and add search your desired skills, location or industry and others.</p>
-          <Link href="/signup">
-            <button className="btn-outline">Sign up</button>
-          </Link>
-        </section>
-
-        {/* Companies Rating Section */}
-        <section className="section">
-          <h2 className="section-title">Companies Rating</h2>
-          <p className="section-desc">The standard chunk of Lorem ipsum text used since the 1950s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" accompanied by English versions.</p>
-          <div className="ratings-list">
-            <div className="rating-item">
-              <div className="rating-triangle">▲</div>
-              <h4>Andirguh Ink</h4>
-              <div className="stars">★★★★★ <span>23</span></div>
-              <div className="label">Founded</div>
-            </div>
-            <div className="rating-item">
-              <div className="rating-triangle">▲</div>
-              <h4>Andirguh Ink</h4>
-              <div className="stars">★★★★★ <span>23</span></div>
-              <div className="label">Founded</div>
-            </div>
-            <div className="rating-item">
-              <div className="rating-triangle">▲</div>
-              <h4>Andirguh Ink</h4>
-              <div className="stars">★★★★★ <span>23</span></div>
-              <div className="label">Founded</div>
-            </div>
-          </div>
-        </section>
-
-        {/* Social Media Section */}
-        <section className="social-section">
-          <h2>Join With Social Media</h2>
-          <p>By creating an account, I agree to Old Employer's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a></p>
-          <div className="social-buttons">
-            <button className="social-btn">f</button>
-            <button className="social-btn">in</button>
-            <button className="social-btn">𝕏</button>
-            <button className="social-btn">G</button>
-          </div>
-        </section>
-
-        {/* How it works detail Section */}
-        <section className="section">
-          <h2 className="section-title">How it work</h2>
-          <p className="section-desc">The standard chunk of Lorem ipsum text used since the 1950s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" accompanied by English versions.</p>
-        </section>
-
-        {/* Footer */}
-        <footer className="site-footer">
-          <div className="footer-inner">
-            <div className="footer-box">
-              <div className="footer-brand">
-                <img src="/logo.png" alt="Old Employer" style={{ height: 26 }} />
-              </div>
-            </div>
-
-            <div className="footer-box">
-              <div className="links-column">
-                <h4>Links of Interest</h4>
-                <ul>
-                  <li>About</li>
-                  <li>Help Center</li>
-                  <li>Business Services</li>
-                  <li>Ad Choices</li>
-                  <li>Advertising</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="footer-box">
-              <div className="links-column">
-                <h4>Talent Solutions</h4>
-                <ul>
-                  <li>Talent Solutions</li>
-                  <li>Professional Community Policies</li>
-                  <li>Careers</li>
-                  <li>Marketing Solutions</li>
-                  <li>Sales Solutions</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="footer-box">
-              <div className="industry-column">
-                <h4>Search by Industry</h4>
-                <div className="industry-grid">
-                  {Array.from({ length: 12 }).map((_, i) => (
-                    <div key={i} className="industry-item">Industry</div>
-                  ))}
+        {/* Join With Social Media */}
+        <section className='feature-inner'>
+                <div className="comp-rating">
+                  <h3 className="top-rated-title">Join With Social Media</h3>
+                  <div className="top-rated-accent" />
+                  <div className="top-rated-divider" />
+                  <div className="top-cards"></div>
+                  <p className="feature-desc">By creating an account, I agree to Old-Employer<Link href="/terms"> Terms </Link> of Use and<Link href="/privacy"> Privacy Policy</Link>.</p>
                 </div>
-              </div>
-            </div>
-          </div>
+<div>
+  
+</div>
 
-          <div className="footer-bar">
-            <div className="bar-inner">
-              <div>Corporation © 2024</div>
-              <div className="bar-right">Privacy & Terms</div>
+        </section>
+
+          {/* How it work */}
+          <section className=' social-section'>
+            <div className='feature-inner'>
+                <div className="comp-rating">
+                  <h3 className="top-rated-title">How it work</h3>
+                  <div className="top-rated-accent" />
+                  <div className="top-rated-divider" />
+                  <div className="top-cards"></div>
+                  <p className="feature-desc">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 falso reproduced in their exactoriginal form, accompanied by English versions.</p>
+                </div>
             </div>
-          </div>
-        </footer>
+        </section>
       </main>
     </>
   )

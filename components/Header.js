@@ -6,7 +6,7 @@ export default function Header(){
       <div className="header-inner">
         <div className="brand">
           <Link href="/">
-            <img src="/logo.png" alt="Old Employer" className="brand-logo" style={{cursor: 'pointer'}} />
+            <img src="/logo.png" alt="Old Employer" className="brand-logo" />
           </Link>
           <div className="brand-text-wrap">
           </div>
