@@ -2,6 +2,7 @@ import React from 'react';
 
 export default function EmployerCard({ title, location, rating, reviews, avatar, stars = '★★★★★' }) {
   const up = parseInt(reviews, 10) || 0;
+  // approximate down votes for visual parity when not provided
   const down = Math.max(0, Math.round(up / 8));
 
   return (

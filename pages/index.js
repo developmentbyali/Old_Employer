@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Header from '../components/Header'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import CountrySelect from '../components/CountrySelect'
@@ -19,7 +18,15 @@ export default function Home() {
     { title: 'Andropple lab', location: 'Pakistan', rating: '4.5', reviews: 150, avatar: '/logo 2.png' },
     { title: 'Acme Co', location: 'USA', rating: '4.2', reviews: 98, avatar: '/logo 2.png' },
     { title: 'Techrise', location: 'UK', rating: '4.8', reviews: 210, avatar: '/logo 2.png' },
-    { title: 'DevWorks', location: 'Canada', rating: '4.0', reviews: 44, avatar: '/logo 2.png' }
+    { title: 'DevWorks', location: 'Canada', rating: '4.0', reviews: 44, avatar: '/logo 2.png' },
+    { title: 'NovaSoft', location: 'Germany', rating: '4.1', reviews: 72, avatar: '/logo 2.png' },
+    { title: 'ByteLabs', location: 'India', rating: '4.6', reviews: 184, avatar: '/logo 2.png' },
+    { title: 'GreenEdge', location: 'Netherlands', rating: '4.3', reviews: 64, avatar: '/logo 2.png' },
+    { title: 'Cloud9', location: 'USA', rating: '4.7', reviews: 321, avatar: '/logo 2.png' },
+    { title: 'Innova', location: 'Australia', rating: '4.0', reviews: 37, avatar: '/logo 2.png' },
+    { title: 'BrightWorks', location: 'Sweden', rating: '4.4', reviews: 128, avatar: '/logo 2.png' },
+    { title: 'Alpha Systems', location: 'France', rating: '3.9', reviews: 21, avatar: '/logo 2.png' },
+    { title: 'Zenith Solutions', location: 'Spain', rating: '4.2', reviews: 89, avatar: '/logo 2.png' }
   ]
   return (
     <>
@@ -118,7 +125,7 @@ export default function Home() {
             {/* Job Opportunity Section */}
             <section className="job-cta-section">
               <div className="job-cta-inner">
-                <ScrollMouse left={-20} top={-80} />
+                <ScrollMouse left={100} top={-80} />
                 <div className="job-cta-row">
                   <h3 className="job-cta-title">Get better job that you deserve !</h3>
                   <div className="job-cta-action">
@@ -212,10 +219,10 @@ export default function Home() {
             </section>
 
             {/* Companies Rating */}
-            <section className="section-3">
+            <section className="section-3 companies-rating-section">
               <div className="feature-inner">
                 <div className="comp-rating">
-                  <h3 className="top-rated-title">How can look in side in any company</h3>
+                  <h3 className="top-rated-title">Companies Rating</h3>
                   <div className="top-rated-accent" />
                   <div className="top-rated-divider" />
                   <div className="top-cards"></div>
@@ -232,23 +239,25 @@ export default function Home() {
         </div>
 
         {/* Join With Social Media */}
-        <section className='feature-inner'>
+  <section className='feature-inner padded-section join-social-section'>
                 <div className="comp-rating">
                   <h3 className="top-rated-title">Join With Social Media</h3>
                   <div className="top-rated-accent" />
                   <div className="top-rated-divider" />
                   <div className="top-cards"></div>
                   <p className="feature-desc">By creating an account, I agree to Old-Employer<Link href="/terms"> Terms </Link> of Use and<Link href="/privacy"> Privacy Policy</Link>.</p>
+                <div className='social-icons'>
+                  <img className="social-icon" src="/linkedin-circle 1.svg" alt="Sign up with LinkedIn" width="30" height="30" />
+                  <img className="social-icon" src="/facebook-circle 1.svg" alt="Sign up with Facebook" width="30" height="30" />
+                  <img className="social-icon" src="/google 1.svg" alt="Sign up with Google" width="30" height="30" />
+                  <img className="social-icon" src="/twitter-circle 1.svg" alt="Sign up with Twitter" width="30" height="30" />
                 </div>
-<div>
-  
-</div>
-
+                </div>
         </section>
 
           {/* How it work */}
-          <section className=' social-section'>
-            <div className='feature-inner'>
+          <section className='social-section '>
+            <div className='feature-inner padded-section'>
                 <div className="comp-rating">
                   <h3 className="top-rated-title">How it work</h3>
                   <div className="top-rated-accent" />
