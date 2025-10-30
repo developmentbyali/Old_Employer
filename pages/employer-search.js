@@ -79,18 +79,25 @@ export default function EmployerSearch() {
             </button>
           </div>
         </div>
-        <div className="employer-grid">
-          {/* Ad placeholder */}
-          <div className="employer-ad employer-ad-top">Ad here...</div>
-          {/* Employer cards grid */}
+
+        
+
+        
+        <div className="company-grid">
+          {/* Employer cards grid - 3 columns */}
           {mockCompanies.slice(0, 12).map((company, i) => (
             <EmployerCard key={company.id} {...company} />
           ))}
           {/* Ad placeholder in grid */}
-          <div className="employer-ad employer-ad-mid">Ad here...</div>
         </div>
+
+
+
+
+
+
         {/* Pagination and bottom ad */}
-        <div className="employer-pagination-row">
+        {/* <div className="employer-pagination-row">
           <div className="employer-pagination">
             <button className="employer-pagination-btn">1</button>
             <button className="employer-pagination-btn">2</button>
@@ -98,7 +105,7 @@ export default function EmployerSearch() {
             <button className="employer-pagination-btn">4</button>
           </div>
           <div className="employer-ad employer-ad-bottom">Ad here...</div>
-        </div>
+        </div> */}
       </div>
     </div>
   </section>

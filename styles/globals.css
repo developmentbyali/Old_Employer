@@ -7,16 +7,17 @@
   width: 345px;
   background: #fff;
   border-radius: 8px;
-  padding-top: 30px;
-  padding-right: 15px;
-  padding-bottom: 30px;
-  padding-left: 15px;
+  padding: 30px 15px 30px 15px;
   box-shadow: 0 2px 12px 0 rgba(16,24,40,0.04);
   font-size: 15px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
+    margin: 0;
+  font-size: 0.95rem;
+  color: #222;
+  align-self: center;
 }
 .employer-clear-btn {
   background: transparent;
@@ -112,12 +113,7 @@
 .employer-clear-text {
   font-weight: 700;
 }
-.employer-sidebar-heading {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #222;
-  align-self: center;
-}
+
 
 /* Selected filter chips shown under the clear control */
 .employer-selected-chips {
@@ -173,7 +169,6 @@
   animation: rotate360 0.6s linear;
 }
 .employer-filter-group {
-  margin-bottom: 12px;
   /* subtle divider between groups to match sidebar rhythm */
   border-bottom: 1px solid #EAF0FF;
 }
@@ -190,7 +185,7 @@
   font-weight: 600; /* semibold */
   font-size: 16px;
   color: #252525;
-  padding-bottom: 3px; /* reduced gap below the label */
+  /* padding-bottom: 3px; reduced gap below the label */
 }
 
 /* Countries list layout: checkbox, name, count aligned right */
@@ -198,6 +193,339 @@
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+/* New company grid and card styles (3 columns, 30px gap) */
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  align-items: start;
+}
+
+/* Ad placeholder inside grid — matches card height */
+.company-ad {
+  background: #23BABC;
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  height: var(--card-height, 215px);
+}
+
+/* Reusable company card with configurable size via CSS variables */
+.company-card {
+  background: #FFFFFF;
+  border: 1px solid #EAF0FF;
+  padding: 30px;
+  border-radius: 15px;
+  height: var(--card-height, 215px);
+  width: var(--card-width, 100%);
+  box-sizing: border-box;
+  display: flex;
+  /* default: stack three child divs as rows */
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+/* Prevent overflowing content inside fixed-size cards
+   - allow flex children to shrink (min-width:0) so ellipsis works
+   - truncate long titles/locations with ellipsis without changing card size */
+.company-card {
+  overflow: hidden; /* clip any accidental overflow */
+}
+.company-card .company-card-body,
+.company-card .company-card-col,
+.company-card .company-card-col-2,
+.company-card .company-card-meta {
+  min-width: 0; /* allow flex items to shrink below their content width */
+}
+.company-card-title,
+.company-card-location {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* keep title on single line and show ellipsis */
+  display: block;
+  max-width: 100%;
+}
+.company-card-thumb-count {
+  max-width: 72px; /* keep counts compact */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: #585858;
+}
+
+.company-card .company-card-avatar {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: transparent;
+}
+.company-card-avatar-img { width: 100%; height: 100%; object-fit: contain; display:block }
+
+.company-card-body { flex: 1; display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+.company-card-col { display: flex; flex-direction: row; align-items: center; gap: 12px; width: 100%; }
+.company-card-col-1 { display: flex; flex-direction: row; align-items: center; gap: 12px; }
+
+/* Force all direct children of the first row to appear inline in one row */
+.company-card-col-1, .company-card-col-1 > * {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.company-card-col-1 > .company-card-avatar { flex: 0 0 auto; }
+.company-card-col-1 > .company-card-thumbs { display: flex !important; flex-direction: row !important; gap: 8px !important; }
+.company-card-col-1 .company-card-avatar-img { width: 48px !important; height: 48px !important; }
+
+/* Ensure everything in the first row stays on a single horizontal line */
+.company-card-col-1 {
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+.company-card-col-1 > * {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+}
+.company-card-thumbs { flex-wrap: nowrap !important; }
+.company-card-thumb-row { display: inline-flex !important; align-items: center !important; gap: 6px !important; }
+.company-card-avatar-img { width: 40px !important; height: 40px !important; }
+.company-card-thumb-count { white-space: nowrap !important; }
+.company-card-col-2 { display: flex; flex-direction: row; align-items: center; gap: 12px; }
+.company-card-col-3 { display: flex; flex-direction: row; align-items: center; gap: 12px; }
+
+/* Explicit wrapper to force avatar + thumbs on one line */
+.company-card-avatar-thumbs { display: flex !important; flex-direction: row !important; align-items: center !important; gap: 8px !important; flex-wrap: nowrap !important; }
+.company-card-avatar-thumbs .company-card-avatar { flex: 0 0 auto; }
+.company-card-avatar-thumbs .company-card-thumbs { flex: 0 1 auto; }
+
+/* Modifier classes to replace inline styles in EmployerCardNew component */
+.company-card-avatar-thumbs--row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  white-space: nowrap;
+  width: 100%;
+}
+.company-card-thumbs--stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+.company-card-thumbs--row {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  align-items: center;
+}
+.company-card-thumb-row--col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.company-card-col-2--space {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.company-card-col-3--space {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+.company-card-title--truncate {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 1 auto;
+}
+.company-card-location--fixed {
+  margin: 0;
+  margin-left: 12px;
+  flex: 0 0 auto;
+}
+.company-card-avatar-img--large {
+  width: 100px !important;
+  height: 100px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Stronger, row-specific rules to ensure inline layout inside each stacked row */
+.company-card > .company-card-col { display: flex; flex-direction: row; align-items: center; gap: 12px; width: 100%; }
+
+/* Row 1: avatar and thumbs inline */
+.company-card > .company-card-col.company-card-col-1 .company-card-avatar {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.company-card > .company-card-col.company-card-col-1 .company-card-avatar-img {
+  width: 48px; /* keep avatar smaller so thumbs fit on the same row */
+  height: 48px;
+  object-fit: contain;
+  display: block;
+}
+.company-card > .company-card-col.company-card-col-1 .company-card-thumbs {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+.company-card > .company-card-col.company-card-col-1 .company-card-thumb-row { display:flex; align-items:center; gap:6px }
+
+/* Row 2: title and location inline */
+.company-card > .company-card-col.company-card-col-2 .company-card-title,
+.company-card > .company-card-col.company-card-col-2 .company-card-location {
+  display: inline-block;
+  margin: 0;
+}
+
+/* Row 3: rating and stars inline */
+.company-card > .company-card-col.company-card-col-3 .company-card-rating { display:flex; flex-direction:row; align-items:center; gap:8px }
+
+/* Rating meta row: badge + overall text arranged horizontally with a 13px gap */
+.company-card-rating-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+}
+
+/* thumbs inline inside col-1 */
+.company-card-thumbs { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.company-card-thumbs.company-card-thumbs--row {
+  /* more specific selector to ensure the "row" modifier wins over generic rules */
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  align-items: center;
+}
+.company-card-thumb-row { display:flex; align-items:center; gap:6px }
+
+/* small tweaks for title/location when they sit on one row */
+.company-card-title { margin: 0; font-weight: 700; font-size: 18px; color: #111827 }
+.company-card-location { margin: 0; color: var(--muted); font-size: 13px }
+.company-card-title-row { display:flex; align-items:flex-start; justify-content:space-between; gap:12px }
+.company-card-title { margin:0; font-weight:700; font-size:18px; color:#111827 }
+.company-card-location { margin:0; color:var(--muted); font-size:13px }
+
+.company-card-meta { display:flex; align-items:center; justify-content:space-between; gap:12px }
+.company-card-left-meta { display:flex; align-items:center; gap:12px }
+.company-card-stars { color:#FFA800; font-size:20px }
+.company-card-overall { font-size:12px; color:#585858 }
+
+.company-card-right-stats { display:flex; align-items:center; gap:12px }
+.company-rating-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 20px;
+  background: #23BABC;
+  color: #FFFFFF;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+.company-card-thumb-row { display:flex; align-items:center; gap:6px; font-size:14px }
+.company-card-thumb-count { color: #585858; font-size: 12px }
+
+/* layout modifiers */
+.company-card.layout-default { flex-direction: row }
+.company-card.layout-vertical { flex-direction: column; align-items: flex-start }
+
+/* responsive: stack card vertically on small screens */
+@media (max-width: 700px) {
+  .company-card { flex-direction: column; align-items: stretch; }
+  .company-card-col-1, .company-card-col-3 { flex: none; align-items: flex-start; }
+  .company-card-col-2 { width: 100%; }
+}
+.company-card.layout-avatar-left { flex-direction: row }
+
+/* Responsive breakpoints for the global company grid:
+   - Desktop: 3 columns (default)
+   - Tablet: 2 columns (<= 1100px)
+   - Mobile: 1 column (<= 700px)
+*/
+@media (max-width: 1100px) {
+  .company-grid { grid-template-columns: repeat(2, 1fr); }
+  .employer-layout { flex-direction: column; }
+}
+@media (max-width: 700px) {
+  .company-grid { grid-template-columns: repeat(1, 1fr); }
+  .employer-layout { flex-direction: column; }
+}
+
+/* Page-specific overrides for employer-search: fixed card size and tighter grid gap */
+.employer-main .company-grid {
+  grid-template-columns: repeat(3, 345px);
+  gap: 12px;
+  justify-content: center; /* center the 3-column grid within container */
+}
+.employer-main .company-card {
+  --card-width: 345px;
+  --card-height: 215px;
+  width: var(--card-width);
+  height: var(--card-height);
+  padding: 30px;
+  border-radius: 15px;
+  border-width: 1px;
+  box-sizing: border-box;
+}
+
+/* Page-specific override: ensure avatar container matches 100px image used in EmployerCardNew
+   This is high-specificity and safe to apply only inside the employer-search main area. */
+.employer-main .company-card .company-card-avatar {
+  flex: 0 0 100px !important;
+  width: 100px !important;
+  height: 100px !important;
+}
+.employer-main .company-card .company-card-avatar-img {
+  width: 100px !important;
+  height: 100px !important;
+  object-fit: contain !important;
+}
+
+/* tweak inner spacing to match the attached design */
+.employer-main .company-card { gap: 12px; }
+.employer-main .company-card .company-card-avatar { flex: 0 0 72px; width:72px; height:72px }
+.employer-main .company-card-title { font-size: 16px; margin-top: 6px }
+.employer-main .company-card-stars { font-size: 20px }
+
+@media (max-width: 1100px) {
+  .employer-main .company-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+@media (max-width: 700px) {
+  .employer-main .company-grid { grid-template-columns: repeat(1, 1fr); gap: 12px; }
+  .employer-main .company-card { width: 100%; }
 }
 .employer-filter-group--countries ul li {
   padding: 8px 0;
@@ -272,7 +600,7 @@
   font-weight: 600;
   font-size: 16px;
   color: #252525;
-  padding-bottom: 3px; /* match countries: reduced gap below the label */
+  /* padding-bottom: 3px; match countries: reduced gap below the label */
 }
 .employer-filter-group--industry ul,
 .employer-filter-group--size ul {
@@ -412,7 +740,6 @@
 }
 .employer-filter-label {
   font-weight: 700;
-  margin-bottom: 6px;
   color: #222;
 }
 .employer-filter-count {
@@ -540,7 +867,7 @@
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 16px;
+    /* gap: 16px; */
     padding: 16px 8px;
     border-radius: 12px;
     margin-bottom: 12px;
@@ -1574,8 +1901,8 @@
 .card-thumb-row .thumb {
   font-size: 18px;
 }
-.thumb.up { color: #22c55e; }
-.thumb.down { color: #ef4444; }
+.thumb.up { color: #65bf73; }
+.thumb.down { color: #e41c1c; }
 .card-thumb-count { color: #8c8c8c; font-size: 13px; }
 
 
