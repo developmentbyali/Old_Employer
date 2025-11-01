@@ -1,7 +1,94 @@
+/* --- Responsive enhancements for employer search page (mobile/tablet) --- */
+@media (max-width: 900px) {
+  .employer-search-main {
+    padding: 0 !important;
+    min-height: 100vh;
+  }
+  .employer-content-section {
+    padding: 32px 8px !important;
+    min-width: 0;
+  }
+  .employer-layout {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .employer-sidebar {
+    width: 100% !important;
+    min-width: 0;
+    padding: 12px 4px !important;
+    border-radius: 8px !important;
+    margin-bottom: 8px !important;
+    box-shadow: none !important;
+  }
+  .employer-main {
+    width: 100% !important;
+    min-width: 0;
+    padding: 0 !important;
+  }
+  .employer-main-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    font-size: 15px !important;
+    margin-bottom: 12px !important;
+  }
+  .company-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 0 !important;
+  }
+  .employer-main .company-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    padding: 16px 8px !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+  }
+  .employer-main .company-card .company-card-avatar {
+    width: 72px !important;
+    height: 72px !important;
+    flex: 0 0 72px !important;
+  }
+  .employer-main .company-card .company-card-avatar-img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+  .employer-ad-bottom {
+    height: 64px !important;
+    font-size: 13px !important;
+    padding: 8px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .employer-content-section {
+    padding: 12px 2px !important;
+  }
+  .employer-main .company-card {
+    padding: 8px 2px !important;
+    border-radius: 7px !important;
+    font-size: 14px !important;
+  }
+  .employer-main-header {
+    font-size: 13px !important;
+    gap: 6px !important;
+  }
+  .employer-ad-bottom {
+    height: 44px !important;
+    font-size: 12px !important;
+    padding: 4px !important;
+  }
+}
 /* Employer search layout */
 .employer-layout {
   display: flex;
   gap: 32px;
+}
+
+/* Page container background for Employer Search */
+.employer-search-main {
+  background: #FFFFFF; /* changed to white per request */
 }
 .employer-sidebar {
   width: 345px;
@@ -203,6 +290,38 @@
   align-items: start;
 }
 
+/* List view: make grid a single column and ensure cards stretch full width */
+.company-grid.list-view {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.company-grid.list-view .company-card {
+  width: 100% !important;
+}
+
+/* When the page is in list view, make each card a fixed 133px high horizontal row */
+.company-grid.list-view .company-card,
+.employer-main .company-grid.list-view .company-card {
+  --card-height: 133px;
+  height: 133px;
+  padding: 12px 18px; /* tighter padding for horizontal layout */
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.company-card-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px; /* reduced gap per request */
+  height: 100%; /* ensure inner list container fills the card height */
+}
+
+.company-card-list .company-card-avatar { flex: 0 0 100px; width: 100px; height: 100px; }
+.company-card-list .company-card-avatar-img--xlarge { width: 100px !important; height: 100px !important; }
+
 /* Ad placeholder inside grid — matches card height */
 .company-ad {
   background: #23BABC;
@@ -374,6 +493,14 @@
   display: block !important;
 }
 
+/* xlarge avatar used for list view / temporary sizing */
+.company-card-avatar-img--xlarge {
+  width: 133px !important;
+  height: 133px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
 /* Stronger, row-specific rules to ensure inline layout inside each stacked row */
 .company-card > .company-card-col { display: flex; flex-direction: row; align-items: center; gap: 12px; width: 100%; }
 
@@ -470,6 +597,38 @@
 }
 .company-card.layout-avatar-left { flex-direction: row }
 
+/* List view card: horizontal layout used when the page is in list mode */
+.company-card-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.company-card-list-left { flex: 0 0 auto; display:flex; align-items:center; }
+.company-card-list-center { flex: 1 1 auto; min-width: 0; display:flex; flex-direction:column; justify-content:center; }
+.company-card-list-right { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.company-card-list-excerpt { color: #6B7280; font-size: 13px; margin-top: 6px; }
+.company-card-list .company-card-avatar { width: 100px; height: 100px; flex: 0 0 100px; }
+.company-card-list .company-card-avatar-img { width: 100px; height: 100px; object-fit: contain; }
+.company-card-list .company-card-thumbs { flex-direction: row; gap: 12px; }
+
+/* placeholder slots inserted into .company-card-list — hidden by default */
+.company-card-slot { display: none; }
+.company-card-slot-right { display: none; }
+/* show the left slot when list-view cards are active */
+.company-grid.list-view .company-card-slot-left,
+.employer-main .company-grid.list-view .company-card-slot-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Make sure list cards used inside the employer-search page span the full width */
+.employer-main .company-grid.list-view { grid-template-columns: 1fr; }
+.employer-main .company-grid.list-view .company-card { --card-width: 100%; width: 100%; display: block; padding: 20px 24px; }
+
 /* Responsive breakpoints for the global company grid:
    - Desktop: 3 columns (default)
    - Tablet: 2 columns (<= 1100px)
@@ -484,6 +643,334 @@
   .employer-layout { flex-direction: column; }
 }
 
+/* Tablet-specific: ensure grid view uses exactly 2 columns between mobile and desktop */
+@media (min-width: 701px) and (max-width: 1100px) {
+  .company-grid.grid-view,
+  .employer-main .company-grid.grid-view {
+    /* force 2 columns in grid view on tablet */
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    justify-content: center;
+  }
+}
+
+/* Ensure list view shows a single full-width card per row on tablet */
+@media (min-width: 701px) and (max-width: 1100px) {
+  .company-grid.list-view,
+  .employer-main .company-grid.list-view {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+  .company-grid.list-view .company-card,
+  .employer-main .company-grid.list-view .company-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  /* Compact list-view card sizing on mobile to prevent overflow */
+  .company-grid.list-view .company-card {
+    padding: 8px !important;
+    gap: 8px !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  .company-grid.list-view .company-card .company-card-avatar {
+    flex: 0 0 56px !important;
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .company-grid.list-view .company-card .company-card-avatar-img {
+    width: 56px !important;
+    height: 56px !important;
+    object-fit: cover !important;
+  }
+  .company-grid.list-view .company-card .company-card-body {
+    padding: 0 !important;
+    gap: 6px !important;
+  }
+  .company-grid.list-view .company-card-title {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    white-space: normal !important; /* allow wrapping */
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+  .company-grid.list-view .company-card-location {
+    font-size: 12px !important;
+    white-space: normal !important;
+  }
+  .company-grid.list-view .company-card-stars { font-size: 16px !important; }
+  .company-grid.list-view .company-card-thumb-count { font-size: 11px !important; }
+  .company-grid.list-view .company-card-overall { font-size: 11px !important; }
+  .company-grid.list-view .company-card .company-card-thumbs { gap: 6px !important; }
+  .company-grid.list-view .company-card .company-card-col { gap: 8px !important; }
+  /* Ensure text truncation only where needed; let title/location wrap instead of overflowing */
+  .company-grid.list-view .company-card-title--truncate { white-space: normal !important; }
+}
+
+/* More precise list-view mobile layout: align avatar, content and right-meta cleanly */
+@media (max-width: 700px) {
+  .company-grid.list-view .company-card,
+  .employer-main .company-grid.list-view .company-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 10px 12px !important;
+  }
+
+  .company-grid.list-view .company-card-avatar,
+  .employer-main .company-grid.list-view .company-card-avatar {
+    flex: 0 0 48px !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+  .company-grid.list-view .company-card-avatar-img,
+  .employer-main .company-grid.list-view .company-card-avatar-img {
+    width: 48px !important;
+    height: 48px !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  .company-grid.list-view .company-card-body,
+  .employer-main .company-grid.list-view .company-card-body {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    min-width: 0 !important;
+  }
+
+  .company-grid.list-view .company-card-col-2,
+  .company-grid.list-view .company-card-col-3 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  /* Right-side meta column (rating/thumbs) */
+  .company-grid.list-view .company-card-right-stats,
+  .employer-main .company-grid.list-view .company-card-right-stats {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
+    min-width: 56px !important;
+  }
+
+  .company-grid.list-view .company-card-title {
+    font-size: 15px !important;
+    margin: 0 !important;
+    line-height: 1.1 !important;
+    color: #111827 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .company-grid.list-view .company-card-location {
+    font-size: 12px !important;
+    color: #6B7280 !important;
+    margin: 0 !important;
+  }
+
+  .company-grid.list-view .company-card-stars { font-size: 15px !important; }
+  .company-grid.list-view .company-card-thumb-count,
+  .company-grid.list-view .company-card-overall { font-size: 11px !important; }
+
+  /* make rating badge smaller to fit better on mobile */
+  .company-grid.list-view .company-rating-badge {
+    width: 28px !important;
+    height: 18px !important;
+    font-size: 11px !important;
+  }
+
+  /* thumbs icon sizing */
+  .company-grid.list-view .company-card-thumbs i,
+  .company-grid.list-view .company-card-thumbs svg {
+    font-size: 14px !important;
+  }
+
+  /* Ensure thumbs and counts don't push layout */
+  .company-grid.list-view .company-card-thumbs { gap: 6px !important; align-items:center !important; }
+}
+
+/* Ensure the employer grid centers and uses the full container width on tablet/mobile
+   This prevents items from sticking to the left while leaving extra whitespace on the right. */
+@media (max-width: 1100px) {
+  /* Prevent horizontal overflow and ensure grid/cards fill the viewport */
+  html, body, .employer-search-main {
+    overflow-x: hidden;
+  }
+  .employer-content-section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .employer-main .company-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .employer-main .company-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 700px) {
+  /* Mobile: single column, remove extra side spacing */
+  .employer-content-section {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .employer-main .company-grid {
+    grid-template-columns: 1fr !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+  /* Ensure list view is single-column on mobile as well */
+  .company-grid.list-view,
+  .employer-main .company-grid.list-view {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+  .company-grid.list-view .company-card,
+  .employer-main .company-grid.list-view .company-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .employer-main .company-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+
+  /* Strong centering helpers to ensure cards sit centered in the viewport */
+  .employer-content-section {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+  }
+  .employer-main {
+    width: 100% !important;
+    max-width: 720px !important; /* constrain content width for better centering */
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .company-grid {
+    justify-items: center !important;
+    justify-content: center !important;
+    grid-auto-flow: row !important;
+    width: 100% !important;
+  }
+  .company-grid > * {
+    justify-self: center !important;
+    width: 100% !important;
+    max-width: 720px !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* Mobile sidebar overlay/modal styles */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1200;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end; /* sidebar slides in from right */
+}
+.employer-sidebar-mobile {
+  width: 92%;
+  max-width: 420px;
+  background: #fff;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: -8px 0 24px rgba(0,0,0,0.12);
+  padding: 18px;
+  box-sizing: border-box;
+  z-index: 1210;
+}
+.employer-sidebar-mobile-header { display:flex; justify-content:flex-end; }
+.employer-sidebar-close {
+  background: transparent;
+  border: none;
+  font-weight: 700;
+  color: #111827;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Icon specific styles + entrance animation when overlay opens */
+.employer-sidebar-close i {
+  font-size: 18px;
+  display: inline-block;
+  line-height: 1;
+  transition: transform 180ms ease, color 180ms ease;
+}
+.sidebar-overlay .employer-sidebar-close i {
+  animation: popIn 240ms cubic-bezier(.2,.8,.2,1);
+}
+.employer-sidebar-close:hover i {
+  transform: rotate(20deg) scale(1.08);
+  color: #23BABC;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.6) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(1.08) rotate(6deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* Mobile filter toggle button (visible on small screens) */
+.employer-filter-toggle {
+  display: none;
+  background: #23BABC;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 12px;
+  position: relative;
+  z-index: 1300;
+}
+@media (max-width: 900px) {
+  .employer-filter-toggle { display: inline-flex; align-items: center; }
+  /* hide the desktop sidebar in mobile layout (we render a modal instead) */
+  .employer-layout > .employer-sidebar { display: none !important; }
+}
+
+/* prevent body scroll while overlay is open */
+.no-scroll { overflow: hidden !important; height: 100% !important; }
+
+/* subtle slide-in animation for the mobile sidebar */
+.employer-sidebar-mobile { transform: translateX(6%); transition: transform 260ms cubic-bezier(.2,.8,.2,1); }
+.sidebar-overlay .employer-sidebar-mobile { transform: translateX(0); }
+
 /* Page-specific overrides for employer-search: fixed card size and tighter grid gap */
 .employer-main .company-grid {
   grid-template-columns: repeat(3, 345px);
@@ -493,6 +980,7 @@
 .employer-main .company-card {
   --card-width: 345px;
   --card-height: 215px;
+  background: #FFFFFF;
   width: var(--card-width);
   height: var(--card-height);
   padding: 30px;
@@ -527,6 +1015,83 @@
   .employer-main .company-grid { grid-template-columns: repeat(1, 1fr); gap: 12px; }
   .employer-main .company-card { width: 100%; }
 }
+
+/* Pagination styles (simple, centered pill buttons) */
+.employer-pagination-row {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end; /* right-align pagination */
+  align-items: center;
+  margin: 18px 0 28px;
+}
+
+/* Active state for the view toggle buttons */
+.employer-view-btn.active {
+  background: rgba(35,186,188,0.08);
+  border-radius: 8px;
+}
+
+/* View toggle icon colors: active = brand, inactive = muted gray */
+.employer-main-viewbtns .employer-view-btn i {
+  color: #8c8c8c; /* gray for non-selected */
+  transition: color 160ms ease;
+}
+.employer-main-viewbtns .employer-view-btn.active i {
+  color: #23BABC; /* brand green for selected */
+}
+.employer-pagination-btn {
+  min-width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: white;
+  color: #111827;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+.employer-pagination-btn:hover {
+  /* animate color change to brand on hover */
+  background: #23BABC;
+  color: #ffffff;
+  border-color: #23BABC;
+  box-shadow: 0 6px 14px rgba(35,186,188,0.12);
+}
+.employer-pagination-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(35,186,188,0.12);
+}
+.employer-pagination-btn.active {
+  background: #23BABC;
+  color: #fff;
+  border-color: #23BABC;
+}
+.employer-pagination-arrow { min-width: 40px; }
+
+/* Simple ad banner used on employer-search (bottom/top variants) */
+.employer-ad {
+  background: #23BABC;
+  color: #FFFFFF;
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+.employer-ad-bottom {
+  width: 100%;
+  height: 120px; /* fixed banner height requested */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
 .employer-filter-group--countries ul li {
   padding: 8px 0;
 }
@@ -809,55 +1374,8 @@
   min-height: 600px;
   position: relative;
 }
-.employer-ad {
-  background: #23babc;
-  color: #fff;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1em;
-  font-weight: 600;
-  min-height: 160px;
-  grid-column: span 2;
-}
-.employer-ad-top {
-  grid-row: 1;
-}
-.employer-ad-mid {
-  grid-row: 2;
-}
-.employer-ad-bottom {
-  margin-top: 32px;
-  min-height: 80px;
-  border-radius: 10px;
-}
-.employer-pagination-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 24px;
-  gap: 24px;
-}
-.employer-pagination {
-  display: flex;
-  gap: 8px;
-}
-.employer-pagination-btn {
-  background: #fff;
-  border: 1px solid #e6fbf9;
-  border-radius: 6px;
-  padding: 6px 14px;
-  font-size: 16px;
-  color: #0ea19b;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s, border 0.15s;
-}
-.employer-pagination-btn:hover {
-  background: #e6fbf9;
-  border: 1px solid #0ea19b;
-}
+/* Pagination and employer ad blocks removed — these UI pieces were deleted from the DOM.
+   If you want to re-enable them later, restore the styles here. */
 @media (max-width: 1200px) {
   .employer-layout {
     flex-direction: column;
@@ -905,26 +1423,12 @@
     gap: 10px;
     padding: 8px 0;
   }
-  .employer-ad {
-    min-height: 80px;
-    font-size: 1em;
-    border-radius: 8px;
-  }
-  .employer-ad-bottom {
-    margin-top: 12px;
-    min-height: 48px;
-    border-radius: 8px;
-  }
-  .employer-pagination-row {
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 12px;
-  }
+  /* ads and pagination removed from DOM — related mobile overrides cleared */
 }
 /* Employer content section layout */
 .employer-content-section {
-  max-width: 1600px;
-  padding: 100px;
+  max-width: 1580px;
+  padding: 20px;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -1154,15 +1658,14 @@
   padding-left: 100px;
   padding-right: 100px;
   margin: 0 auto;
-  align-self: center;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 24px;
   background: #fff;
-  border-radius: 48px;
-  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.04);
+  /* border-radius: 48px;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.04); */
   min-height: 72px;
   box-sizing: border-box;
   transition: padding 0.2s, gap 0.2s, border-radius 0.2s;
@@ -3973,4 +4476,8 @@ a:focus {
   z-index: 1000;
 }
 
-/* Employer Search page styles removed per request */
+/* Employer Details */
+.emplyerDetails{
+  background: #F5F7FB;
+  
+}

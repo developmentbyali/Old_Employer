@@ -11,71 +11,113 @@ export default function EmployerCard({ title, location, rating, reviews, avatar,
 
   const rootClass = `company-card layout-${layout} ${className}`.trim()
 
-  return (
-    <div className={rootClass} role="group" aria-label={`${title} card`} style={styleVars}>
-
-      {/* 1st div: image + thumbs */}
-      <div className="company-card-col company-card-col-1">
-  <div className="company-card-avatar-thumbs company-card-avatar-thumbs--row">
-          {/* Avatar */}
+  // List layout: horizontal card used in the 'list' view
+  if (layout === 'list') {
+    return (
+      // Frame 164
+      <div className={rootClass} role="group" aria-label={`${title} card`} style={{ ...styleVars, display: 'flex', flexDirection: 'row', gap: '12px' }}>
+        {/* Frame 221 */}
+        <div className="company-card-list">
+          {/* Frame 163 */}
           <div className="company-card-avatar">
-            <img src="/logo 2.png" alt={title} className="company-card-avatar-img company-card-avatar-img--large" />
+            <img src={'/logo 2.png'} alt={title} className="company-card-avatar-img company-card-avatar-img--xlarge" />
           </div>
-
-
-
-          {/* Thumbs */}
-          <div className="company-card-thumbs company-card-thumbs--row" aria-hidden="false" style={{ display: 'flex', flexDirection: 'column', gap: '18px', alignItems: 'center' }}>
-
-            <div className="company-card-thumb-row company-card-thumb-row--col">
-              <i className="thumb up fa-solid fa-thumbs-up" aria-hidden={true}></i>
-              <span className="company-card-thumb-count">{up}</span>
+          {/* Frame 220 */}
+          <div style={{ paddingRight: '30px', paddingLeft: '30px', gap: '12px', display: 'flex', flexDirection: 'column', flex: '1 1 auto', width: '100%' }}>
+            {/* Frame 157 */}
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h4>{title}</h4>
+              <div style={{ fontSize: '12px', color: '#585858' }}>{location}</div>
             </div>
-
-            <div className="company-card-thumb-row company-card-thumb-row--col">
-              <i className="thumb down fa-solid fa-thumbs-down" aria-hidden={true}></i>
-              <span className="company-card-thumb-count">{down}</span>
+            {/* Frame 159 */}
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              {/* Frame 156 */}
+              <div className="company-card-stars">{stars}</div>
+              {/* Frame 158 */}
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '13px' }}>
+                <div className="company-rating-badge" aria-label={`Rating ${rating}`} style={{ width: '32px', height: '20px', fontSize: '12px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{rating}</div>
+                <p style={{ margin: 0, fontSize: '14px', color: '#585858' }}>Overall rating</p>
+              </div>
             </div>
-
           </div>
-
+        </div>
+        {/* frame 162 */}
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '30px', alignItems: 'center' }}>
+          {/* Frame 161 */}
+          <div>
+            <i className="fa-solid fa-thumbs-down" aria-hidden={true} style={{ fontSize: '17px', color: '#E41C1C' }}></i>
+            <span style={{ fontSize: '12px', color: '#585858' }}>{down}</span>
+          </div>
+          {/* Frame 160 */}
+          <div>
+            <i className="fa-solid fa-thumbs-up" aria-hidden={true} style={{ fontSize: '17px', color: '#65BF73' }}></i>
+            <span style={{ fontSize: '12px', color: '#585858' }}>{up}</span>
+          </div>
         </div>
       </div>
+    )
+  }
 
+  // Default vertical card (existing UI)
+  return (
+    // Frame 164
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      width: '345px',
+      height: '215px',
+      gap: '12px',
+      borderRadius: '15px',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: '#EAF0FF',
+      padding: '30px',
+      background: '#FFFFFF'
+     }}>
 
+      {/*Frame 179 - 1st div: image + thumbs */}
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
+        {/*Frame 163 - Avatar */}
+        <div >
+          <img src='/logo 2.png' alt={title} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+        </div>
 
+        {/* Frame 162 - Thumbs */}
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '18px' }}>
+          
+          {/* Frame 160 */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            <i className="fa-solid fa-thumbs-up" aria-hidden={true} style={{ color: '#65BF73', fontSize: '16px' }}></i>
+            <span style={{ fontSize: '12px', color: '#585858' }}>{up}</span>
+          </div>
 
+          {/* Frame 161 */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            <i className="fa-solid fa-thumbs-down" aria-hidden={true} style={{ color: '#E41C1C', fontSize: '16px' }}></i>
+            <span style={{ fontSize: '12px', color: '#585858' }}>{down}</span>
+          </div>
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* 2nd div: title + location */}
-      <div className="company-card-col company-card-col-2 company-card-col-2--space">
-        <h6 className="company-card-title company-card-title--truncate">{title}</h6>
-        <p className="company-card-location company-card-location--fixed">{location}</p>
       </div>
 
-      {/* 3rd div: rating, stars, etc. */}
-      <div className="company-card-col company-card-col-3 ">
-        <div className="company-card-rating company-card-col-3--space">
-          <div className="company-card-stars">{stars}</div>
-          <div className="company-card-rating-meta">
-            <div className="company-rating-badge" aria-label={`Rating ${rating}`}>{rating}</div>
-            <div className="company-card-overall">Overall ratings</div>
-           </div>
-        </div>
+      {/* Frame 157 - 2nd div: title + location */}
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <h6 style={{ fontSize: '16px', color: '#252525', margin: 0 }}>{title}</h6>
+        <p style={{ fontSize: '12px', color: '#585858', margin: 0 }}>{location}</p>
+      </div>
+
+      {/* Frame 159 - 3rd div: rating, stars, etc. */}
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between'  }}>
+          
+          {/* Frame 156 */}
+          <div style={{ color: '#FC9823', fontSize: '15px' }}>{stars}</div>
+
+          {/* Frame 158 */}
+          <div style={{ display: 'flex', flexDirection: 'row', gap: '13px', alignItems: 'center' }}>
+            <div className="company-rating-badge" aria-label={`Rating ${rating}`} style={{ width: '32px', height: '20px', fontSize: '12px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{rating}</div>
+            <p style={{ margin: 0, fontSize: '14px', color: '#585858' }}>Overall rating</p>
+          </div>
       </div>
 
     </div>
